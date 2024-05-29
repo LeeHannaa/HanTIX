@@ -3,6 +3,7 @@ import java.util.ArrayList;
 import java.io.BufferedReader;
 import java.io.FileReader;
 
+//stage class will load from a csv file into an arraylist that uses Seat class
 public class Stage {
     private ArrayList<Seat> s;
     private String filename;
