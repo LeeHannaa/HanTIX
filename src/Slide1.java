@@ -7,6 +7,9 @@ import java.awt.event.MouseEvent;
 public class Slide1 extends JFrame {
     private static final int NUM_COLUMNS = 3;
     private static final int NUM_ROWS = 1; // Adjust as needed
+    private JPanel mainPanel;
+    private CardLayout cardLayout;
+
     Stage s; //stage data
     public Slide1(Concert[] c) {
         // Set the title of the window
@@ -18,9 +21,12 @@ public class Slide1 extends JFrame {
         setBackground(Color.WHITE);
         // Set the default close operation
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
+        cardLayout = new CardLayout();
+        mainPanel = new JPanel(cardLayout);
         
         // Create a container panel with a GridLayout
-        JPanel borders = new JPanel(new BorderLayout(20,20));
+        JPanel homePanel = new JPanel(new BorderLayout(20,20));
         JPanel container = new JPanel(new GridLayout(NUM_ROWS, NUM_COLUMNS, 10, 100));
         
         // Add image panels to the container panel
@@ -35,16 +41,17 @@ public class Slide1 extends JFrame {
         JPanel gap1 = new JPanel();
         JPanel gap2 = new JPanel();
         JPanel gap3 = new JPanel();
-        borders.add(gap1, BorderLayout.EAST);
-        borders.add(gap2, BorderLayout.WEST);
-        borders.add(gap3, BorderLayout.SOUTH);
+        homePanel.add(gap1, BorderLayout.EAST);
+        homePanel.add(gap2, BorderLayout.WEST);
+        homePanel.add(gap3, BorderLayout.SOUTH);
         JLabel title = new JLabel("   HanTIX");
         title.setFont(new Font("Arial", Font.PLAIN, 40));
-        borders.add(title, BorderLayout.NORTH);
+        homePanel.add(title, BorderLayout.NORTH);
         // Add the container panel to the frame
-        borders.add(container, BorderLayout.CENTER);
-        add(borders);
-        
+        homePanel.add(container, BorderLayout.CENTER);
+        mainPanel.add(homePanel, "Home");
+
+        add(mainPanel);
         
         // Center the window on the screen
         setLocationRelativeTo(null);
@@ -72,9 +79,20 @@ public class Slide1 extends JFrame {
             public void mouseClicked(MouseEvent e) {
                 s = new Stage(); //creates new stage
                 s.init(c.getFilename()); //initalizes it with the csv file url
+                showSlide2(c, s);
             }
         });
         
         return panel;
+    }
+
+    private void showSlide2(Concert concert, Stage stage) {
+        Slide2 slide2 = new Slide2(concert, this, stage);
+        mainPanel.add(slide2, "Detail");
+        cardLayout.show(mainPanel, "Detail");
+    }
+    
+    public void showHome() {
+        cardLayout.show(mainPanel, "Home");
     }
 }
