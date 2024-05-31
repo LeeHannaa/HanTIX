@@ -12,17 +12,34 @@ public class Stage {
         BufferedReader reader = new BufferedReader(new FileReader(filename));
         String line;
         String[] split;
-        Seat temp;
         s = new ArrayList<>();
         while ((line = reader.readLine()) != null) {
             split = line.split(",");
-            temp = new Seat(split[0], split[1], split[2] ,split[3]);
+            String seatLabel = "";
+            String id = "";
+            String name = "";
+            String phoneNumber = "";
+    
+            if (split.length >= 1) {
+                seatLabel = split[0].trim();
+            }
+            if (split.length >= 2) {
+                id = split[1].trim();
+            }
+            if (split.length >= 3) {
+                name = split[2].trim();
+            }
+            if (split.length >= 4) {
+                phoneNumber = split[3].trim();
+            }
+    
+            Seat temp = new Seat(seatLabel, id, name, phoneNumber);
             s.add(temp);
         }
         reader.close();
     }
 
-    public void init(String filename) {
+    public void init(String filename) { 
         this.filename = filename;
         try{
             loadFile();
@@ -31,11 +48,14 @@ public class Stage {
         {
             System.out.println("Can't find open file");
         }
-
     }
 
     public void print()
     {
         System.out.println(s.get(0).getName());
+    }
+
+    public ArrayList<Seat> getterSeatList(){
+        return s;
     }
 }

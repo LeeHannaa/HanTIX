@@ -26,4 +26,8 @@ public class Seat {
     public String getPhoneNumber() {
         return phone_number;
     }
+
+    public Boolean isOccupied(){ //true -> reservation
+        return !seat.trim().isEmpty() && !name.trim().isEmpty() && !student_id.trim().isEmpty() && !phone_number.trim().isEmpty();
+    }
 }
