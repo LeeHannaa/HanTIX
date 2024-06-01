@@ -6,14 +6,15 @@ import java.util.ArrayList;
 
 public class Slide2 extends JPanel {
     private JTextArea selectedSeatsArea;
-    private int index= 0;
+    private int index = 0;
+    private JButton nextButton;
+    private ArrayList<String> selectedSeats = new ArrayList<>();
 
     public Slide2(Concert concert, Slide1 parentFrame, Stage stage) {
         setLayout(new BorderLayout());
 
         // Seat list 불러오기
         ArrayList<Seat> seatList = stage.getterSeatList();
-        
 
         // 콘서트 세부 정보 표시
         JLabel nameLabel = new JLabel(concert.getName());
@@ -39,24 +40,27 @@ public class Slide2 extends JPanel {
                 String seatLabel = "R" + (row + 1) + "C" + (col + 1);
                 JButton seatButton = new JButton(seatLabel);
 
-                // stage.isAllSeatsOccupied()
-                if(seatList.get(index).isOccupied()) {
+                if (seatList.get(index).isOccupied()) {
                     seatButton.setForeground(Color.GRAY);
-                    seatButton.setEnabled(false); 
-                    // System.out.println("빈자리 아님");
+                    seatButton.setEnabled(false);
                 }
-                // else System.out.println("빈자리");
 
                 seatButton.setPreferredSize(new Dimension(50, 50)); // 각 좌석 크기 설정
                 seatButton.addActionListener(new ActionListener() {
                     @Override
                     public void actionPerformed(ActionEvent e) {
-                        appendSelectedSeat(seatLabel);
-                        seatButton.setForeground(Color.RED);
+                        if (selectedSeats.contains(seatLabel)) {
+                            removeSelectedSeat(seatLabel);
+                            seatButton.setForeground(Color.BLACK);
+                        } else {
+                            appendSelectedSeat(seatLabel);
+                            seatButton.setForeground(Color.RED);
+                        }
+                        nextButton.setEnabled(!selectedSeats.isEmpty());
                     }
                 });
-                seatPanel.add(seatButton); // 어느 자리인지 저장하는 부분 -> 이거 변경해서 저장받으면 될듯
-                index ++;
+                seatPanel.add(seatButton);
+                index++;
             }
         }
 
@@ -83,9 +87,11 @@ public class Slide2 extends JPanel {
         buttonPanel.setLayout(new FlowLayout(FlowLayout.RIGHT));
 
         JButton backButton = new JButton("Cancel");
-        JButton nextButton = new JButton("Next");
+        nextButton = new JButton("Next");
+        nextButton.setEnabled(false);
 
         backButton.addActionListener(e -> parentFrame.showHome());
+        nextButton.addActionListener(e -> parentFrame.showSlide3(selectedSeats));
 
         buttonPanel.add(backButton);
         buttonPanel.add(nextButton);
@@ -94,6 +100,15 @@ public class Slide2 extends JPanel {
     }
 
     private void appendSelectedSeat(String seat) {
+        selectedSeats.add(seat);
         selectedSeatsArea.append(seat + "\n");
+    }
+
+    private void removeSelectedSeat(String seat) {
+        selectedSeats.remove(seat);
+        selectedSeatsArea.setText("");
+        for (String s : selectedSeats) {
+            selectedSeatsArea.append(s + "\n");
+        }
     }
 }
