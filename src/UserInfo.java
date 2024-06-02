@@ -21,4 +21,14 @@ public class UserInfo {
         info.append("Selected Seats: ").append(String.join(", ", selectedSeats));
         return info.toString();
     }
+    public String getName(){
+        return name;
+    }
+    public String getPhoneNumber(){
+        return phoneNumber;
+    }
+    public String getStudentId(){
+        return studentId;
+    }
+    
 }

@@ -7,9 +7,11 @@ public class Slide3 extends JPanel {
     private JTextField studentIdField;
     private JTextField phoneNumberField;
     private ArrayList<String> selectedSeats;
+    private ArrayList<UserInfo> user;
 
-    public Slide3(ArrayList<String> selectedSeats, Slide1 parentFrame) {
+    public Slide3(ArrayList<String> selectedSeats, Slide1 parentFrame, Stage stage) {
         this.selectedSeats = selectedSeats;
+        this.user = new ArrayList<>();
         setLayout(new BorderLayout());
 
         JLabel titleLabel = new JLabel("Input Reservation Info");
@@ -46,6 +48,7 @@ public class Slide3 extends JPanel {
 
         JButton saveButton = new JButton("Save");
         saveButton.addActionListener(e -> saveInfo());
+        saveButton.addActionListener(e -> parentFrame.showSlide4(selectedSeats, user, stage));
 
         JButton cancelButton = new JButton("Cancel");
         cancelButton.addActionListener(e -> parentFrame.showSlide2());
@@ -56,12 +59,15 @@ public class Slide3 extends JPanel {
         add(buttonPanel, BorderLayout.SOUTH);
     }
 
-    private void saveInfo() {
+    public void saveInfo() {
         String name = nameField.getText();
         String studentId = studentIdField.getText();
         String phoneNumber = phoneNumberField.getText();
 
         UserInfo userInfo = new UserInfo(name, studentId, phoneNumber, selectedSeats);
+
+        
+        user.add(userInfo);
 
         JOptionPane.showMessageDialog(this, userInfo.getInfo(), "Reservation Info", JOptionPane.INFORMATION_MESSAGE);
     }

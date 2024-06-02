@@ -12,7 +12,6 @@ public class Slide2 extends JPanel {
 
     public Slide2(Concert concert, Slide1 parentFrame, Stage stage) {
         setLayout(new BorderLayout());
-
         // Seat list 불러오기
         ArrayList<Seat> seatList = stage.getterSeatList();
 
@@ -37,7 +36,9 @@ public class Slide2 extends JPanel {
         // 좌석 선택 시 이벤트 처리
         for (int row = 0; row < 6; row++) {
             for (int col = 0; col < 5; col++) {
-                String seatLabel = "R" + (row + 1) + "C" + (col + 1);
+                char rowChar = (char)(row+97);
+                String colStr = Integer.toString(col + 1);
+                String seatLabel =rowChar+colStr;
                 JButton seatButton = new JButton(seatLabel);
 
                 if (seatList.get(index).isOccupied()) {
@@ -91,7 +92,7 @@ public class Slide2 extends JPanel {
         nextButton.setEnabled(false);
 
         backButton.addActionListener(e -> parentFrame.showHome());
-        nextButton.addActionListener(e -> parentFrame.showSlide3(selectedSeats));
+        nextButton.addActionListener(e -> parentFrame.showSlide3(selectedSeats, stage));
 
         buttonPanel.add(backButton);
         buttonPanel.add(nextButton);

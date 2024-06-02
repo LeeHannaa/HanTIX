@@ -81,12 +81,18 @@ public class Slide1 extends JFrame {
         cardLayout.show(mainPanel, "Home");
     }
 
-    public void showSlide3(ArrayList<String> selectedSeats) {
-        Slide3 slide3 = new Slide3(selectedSeats, this);
+    public void showSlide3(ArrayList<String> selectedSeats, Stage stage) {
+        Slide3 slide3 = new Slide3(selectedSeats, this, stage);
         mainPanel.add(slide3, "Reservation");
         cardLayout.show(mainPanel, "Reservation");
     }
+    public void showSlide4(ArrayList<String> selectedSeats, ArrayList<UserInfo> user, Stage stage) {
+        Slide4 slide4 = new Slide4(selectedSeats, this, user, stage);
+        mainPanel.add(slide4, "Reservation");
+        cardLayout.show(mainPanel, "Reservation");
+    }
 
+    
 
     public void showSlide2() {
         cardLayout.show(mainPanel, "Detail");

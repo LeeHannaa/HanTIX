@@ -7,6 +7,10 @@ import java.io.FileReader;
 public class Stage {
     private ArrayList<Seat> s;
     private String filename;
+    private String seatLabel;
+    private String id;
+    private String name;
+    private String phoneNumber;
 
     private void loadFile() throws IOException {
         BufferedReader reader = new BufferedReader(new FileReader(filename));
@@ -15,10 +19,10 @@ public class Stage {
         s = new ArrayList<>();
         while ((line = reader.readLine()) != null) {
             split = line.split(",");
-            String seatLabel = "";
-            String id = "";
-            String name = "";
-            String phoneNumber = "";
+            seatLabel = "";
+            id = "";
+            name = "";
+            phoneNumber = "";
     
             if (split.length >= 1) {
                 seatLabel = split[0].trim();
@@ -57,5 +61,20 @@ public class Stage {
 
     public ArrayList<Seat> getterSeatList(){
         return s;
+    }
+    public String getFilename(){
+        return filename;
+    }
+    public String getName(){
+        return name;
+    }
+    public String getSeatLabel(){
+        return seatLabel;
+    }
+    public String getPhoneNumber(){
+        return phoneNumber;
+    }
+    public String getId(){
+        return id;
     }
 }
