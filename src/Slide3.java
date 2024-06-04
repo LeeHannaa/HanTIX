@@ -14,32 +14,54 @@ public class Slide3 extends JPanel {
         this.user = new ArrayList<>();
         setLayout(new BorderLayout());
 
-        JLabel titleLabel = new JLabel("Input Reservation Info");
-        titleLabel.setFont(new Font("Arial", Font.PLAIN, 30));
+        JLabel titleLabel = new JLabel("Enter Reservation Info");
+        titleLabel.setFont(new Font("Arial", Font.PLAIN, 20));
         titleLabel.setHorizontalAlignment(SwingConstants.CENTER);
         add(titleLabel, BorderLayout.NORTH);
 
         JPanel inputPanel = new JPanel();
-        inputPanel.setLayout(new GridLayout(3, 2, 10, 10));
+        inputPanel.setLayout(new GridBagLayout());
+        GridBagConstraints gbc = new GridBagConstraints();
+        gbc.insets = new Insets(10, 10, 10, 10);
 
         JLabel nameLabel = new JLabel("Name:");
+        gbc.gridx = 0;
+        gbc.gridy = 0;
+        gbc.anchor = GridBagConstraints.EAST;
+        inputPanel.add(nameLabel, gbc);
+
         nameField = new JTextField();
         nameField.setPreferredSize(new Dimension(150, 50));
+        gbc.gridx = 1;
+        gbc.gridy = 0;
+        gbc.fill = GridBagConstraints.HORIZONTAL;
+        inputPanel.add(nameField, gbc);
 
         JLabel studentIdLabel = new JLabel("Student ID:");
+        gbc.gridx = 0;
+        gbc.gridy = 1;
+        gbc.fill = GridBagConstraints.NONE;
+        inputPanel.add(studentIdLabel, gbc);
+
         studentIdField = new JTextField();
         studentIdField.setPreferredSize(new Dimension(150, 50));
+        gbc.gridx = 1;
+        gbc.gridy = 1;
+        gbc.fill = GridBagConstraints.HORIZONTAL;
+        inputPanel.add(studentIdField, gbc);
 
         JLabel phoneNumberLabel = new JLabel("Phone Number:");
+        gbc.gridx = 0;
+        gbc.gridy = 2;
+        gbc.fill = GridBagConstraints.NONE;
+        inputPanel.add(phoneNumberLabel, gbc);
+
         phoneNumberField = new JTextField();
         phoneNumberField.setPreferredSize(new Dimension(150, 50));
-
-        inputPanel.add(nameLabel);
-        inputPanel.add(nameField);
-        inputPanel.add(studentIdLabel);
-        inputPanel.add(studentIdField);
-        inputPanel.add(phoneNumberLabel);
-        inputPanel.add(phoneNumberField);
+        gbc.gridx = 1;
+        gbc.gridy = 2;
+        gbc.fill = GridBagConstraints.HORIZONTAL;
+        inputPanel.add(phoneNumberField, gbc);
 
         add(inputPanel, BorderLayout.CENTER);
 
@@ -66,7 +88,6 @@ public class Slide3 extends JPanel {
 
         UserInfo userInfo = new UserInfo(name, studentId, phoneNumber, selectedSeats);
 
-        
         user.add(userInfo);
 
         JOptionPane.showMessageDialog(this, userInfo.getInfo(), "Reservation Info", JOptionPane.INFORMATION_MESSAGE);
@@ -75,86 +96,77 @@ public class Slide3 extends JPanel {
 
 
 
-
-
-
-
 // import javax.swing.*;
 // import java.awt.*;
-// import java.util.List;
+// import java.util.ArrayList;
 
 // public class Slide3 extends JPanel {
-//     private List<String> selectedSeats;
+//     private JTextField nameField;
+//     private JTextField studentIdField;
+//     private JTextField phoneNumberField;
+//     private ArrayList<String> selectedSeats;
+//     private ArrayList<UserInfo> user;
 
-//     public Slide3(Slide1 parentFrame, List<String> selectedSeats) {
+//     public Slide3(ArrayList<String> selectedSeats, Slide1 parentFrame, Stage stage) {
 //         this.selectedSeats = selectedSeats;
+//         this.user = new ArrayList<>();
 //         setLayout(new BorderLayout());
 
-//         // 상단에 제목 추가
-//         JLabel titleLabel = new JLabel("Enter Reservation Information", SwingConstants.CENTER);
-//         titleLabel.setFont(new Font("Arial", Font.BOLD, 16));
+//         JLabel titleLabel = new JLabel("Enter Reservation Info");
+//         titleLabel.setFont(new Font("Arial", Font.PLAIN, 30));
+//         titleLabel.setHorizontalAlignment(SwingConstants.CENTER);
 //         add(titleLabel, BorderLayout.NORTH);
 
-//         // 개인 정보 입력을 위한 폼 생성
-//         JPanel formPanel = new JPanel();
-//         formPanel.setLayout(new GridLayout(3, 2, 10, 10));
-//         formPanel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
+//         JPanel inputPanel = new JPanel();
+//         inputPanel.setLayout(new GridLayout(3, 4, 20, 20));
 
-//         formPanel.add(new JLabel("Name:"));
-//         JTextField nameField = new JTextField();
-//         formPanel.add(nameField);
+//         JLabel nameLabel = new JLabel("          Name:");
+//         nameField = new JTextField();
+//         nameField.setPreferredSize(new Dimension(150, 50));
 
-//         formPanel.add(new JLabel("Student ID:"));
-//         JTextField studentIdField = new JTextField();
-//         formPanel.add(studentIdField);
+//         JLabel studentIdLabel = new JLabel("         Student ID:");
+//         studentIdField = new JTextField();
+//         studentIdField.setPreferredSize(new Dimension(150, 50));
 
-//         formPanel.add(new JLabel("Phone Number:"));
-//         JTextField phoneNumberField = new JTextField();
-//         formPanel.add(phoneNumberField);
+//         JLabel phoneNumberLabel = new JLabel("          Phone Number:");
+//         phoneNumberField = new JTextField();
+//         phoneNumberField.setPreferredSize(new Dimension(150, 50));
 
-//         add(formPanel, BorderLayout.CENTER);
+//         inputPanel.add(nameLabel);
+//         inputPanel.add(nameField);
+//         inputPanel.add(studentIdLabel);
+//         inputPanel.add(studentIdField);
+//         inputPanel.add(phoneNumberLabel);
+//         inputPanel.add(phoneNumberField);
 
-//         // 하단 버튼 패널 설정
+//         add(inputPanel, BorderLayout.CENTER);
+
 //         JPanel buttonPanel = new JPanel();
 //         buttonPanel.setLayout(new FlowLayout(FlowLayout.RIGHT));
 
-//         JButton backButton = new JButton("Cancel");
-//         JButton submitButton = new JButton("Submit");
+//         JButton saveButton = new JButton("Save");
+//         saveButton.addActionListener(e -> saveInfo());
+//         saveButton.addActionListener(e -> parentFrame.showSlide4(selectedSeats, user, stage));
 
-//         backButton.addActionListener(e -> parentFrame.showSlide2());
-//         submitButton.addActionListener(e -> {
-//             // 제출 버튼 클릭 시 처리 로직 추가
-//             String name = nameField.getText();
-//             String studentId = studentIdField.getText();
-//             String phoneNumber = phoneNumberField.getText();
+//         JButton cancelButton = new JButton("Cancel");
+//         cancelButton.addActionListener(e -> parentFrame.showSlide2());
 
-//             StringBuilder seatsInfo = new StringBuilder();
-//             for (String seat : selectedSeats) {
-//                 seatsInfo.append(seat).append("\n");
-//             }
-
-//             String message = "Information Submitted:\n" +
-//                     "Name: " + name + "\n" +
-//                     "Student ID: " + studentId + "\n" +
-//                     "Phone Number: " + phoneNumber + "\n" +
-//                     "Selected Seats:\n" + seatsInfo.toString();
-
-//             JOptionPane.showMessageDialog(parentFrame, message);
-
-//             parentFrame.showHome();
-//         });
-
-//         buttonPanel.add(backButton);
-//         buttonPanel.add(submitButton);
+//         buttonPanel.add(cancelButton);
+//         buttonPanel.add(saveButton);
 
 //         add(buttonPanel, BorderLayout.SOUTH);
 //     }
 
-//     public static void main(String[] args) {
-//         JFrame frame = new JFrame("Slide3 Test");
-//         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-//         frame.setSize(400, 300);
-//         frame.add(new Slide3(null, List.of("A1", "A2", "B1"))); // 부모 프레임과 좌석 리스트를 예제로 전달
-//         frame.setVisible(true);
+//     public void saveInfo() {
+//         String name = nameField.getText();
+//         String studentId = studentIdField.getText();
+//         String phoneNumber = phoneNumberField.getText();
+
+//         UserInfo userInfo = new UserInfo(name, studentId, phoneNumber, selectedSeats);
+
+        
+//         user.add(userInfo);
+
+//         JOptionPane.showMessageDialog(this, userInfo.getInfo(), "Reservation Info", JOptionPane.INFORMATION_MESSAGE);
 //     }
 // }
