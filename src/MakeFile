@@ -1,5 +1,6 @@
-CC = javac
 
+all:
+	javac Main.java Concert.java ConcertIO.java Slide1.java Slide2.java Slide3.java Slide4.java Stage.java UserInfo.java Seat.java
 
 clean:
 	rm *.class
