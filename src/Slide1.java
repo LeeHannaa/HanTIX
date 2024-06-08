@@ -52,9 +52,10 @@ public class Slide1 extends JFrame {
         panel.setBackground(Color.LIGHT_GRAY);
         ImageIcon imageIcon = new ImageIcon(concert.getImage());
         JLabel imageLabel = new JLabel(imageIcon);
-        JLabel name = new JLabel(concert.getName());
-        JLabel date = new JLabel(concert.getDate() + '\n' + concert.getTime());
+        JLabel name = new JLabel("   " +concert.getName());
+        JLabel date = new JLabel(" " + concert.getDate() + '\n' + concert.getTime());
         name.setFont(new Font("Monospaced", Font.PLAIN, 40));
+        date.setFont(new Font("Monospaced", Font.PLAIN, 20));
         panel.add(name);
         panel.add(imageLabel);
         panel.add(date);

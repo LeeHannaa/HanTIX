@@ -14,11 +14,11 @@ public class ConcertIO {
         concerts = new Concert[3];
         try {
             Image picture = ImageIO.read(new File("./images/neo.png"));
-            concerts[0] = new Concert("NEO", "05/30/2024", "8:00PM", "./data/neo.csv", picture);
+            concerts[0] = new Concert("NEO", "06/10/2024", "9:00PM", "./data/neo.csv", picture);
             picture = ImageIO.read(new File("./images/zizzy.png"));
-            concerts[1] = new Concert("ZIZZY", "05/30/2024", "8:00PM","./data/zizzy.csv", picture);
+            concerts[1] = new Concert("ZIZZY", "06/15/2024", "8:00PM","./data/zizzy.csv", picture);
             picture = ImageIO.read(new File("./images/mic.png"));
-            concerts[2] = new Concert("MIC", "05/30/2024", "8:00PM", "./data/mic.csv", picture);
+            concerts[2] = new Concert("MIC", "06/20/2024", "10:00PM", "./data/mic.csv", picture);
         } catch (IOException e) {
             String workingDir = System.getProperty("user.dir");
             System.out.println("Current working directory : " + workingDir);
